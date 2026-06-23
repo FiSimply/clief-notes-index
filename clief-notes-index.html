@@ -357,7 +357,7 @@
 <header>
   <div class="header-top">
     <h1>Clief<span>Notes</span> Index</h1>
-    <span class="subtitle">Community tools, skills &amp; resources — Mar–Jun 2026</span>
+    <span class="subtitle">72 tools · 7 categories · Mar–Jun 2026</span>
   </div>
   <div class="controls">
     <input id="search" type="text" placeholder="Search tools, authors, descriptions..." autocomplete="off">
@@ -692,6 +692,454 @@ const TOOLS = [
     desc: "Turn any codebase into an interactive knowledge graph. Maps dependencies, surfaces entry points, and lets you query the codebase conversationally.",
     links: [
       { label: "GitHub", url: "https://github.com/Egonex-AI/Understand-Anything", type: "github" },
+    ]
+  },
+
+  // SHOW YOUR WORK — ICM / WORKSPACE
+  {
+    id: "coworkos-template",
+    name: "CoworkOS Template",
+    author: "Daniel Terry",
+    cat: "icm",
+    desc: "4-tier workspace template welding Jeff Su's cross-domain folder hierarchy with ICM. Tier 1-3 is the reasoning system; Tier 4 is the ICM workflow layer underneath it. Ships with three workflow shapes: a research factory, a stress monitor, and a content pipeline.",
+    links: [
+      { label: "GitHub", url: "https://github.com/djterry15-afk/coworkos-template", type: "github" },
+      { label: "Community Post", url: "https://www.skool.com/cliefnotes/my-interpretation-of-icm-the-loop", type: "community" },
+    ]
+  },
+  {
+    id: "ibe-workflow-template",
+    name: "IBE Workflow Template",
+    author: "Billa Coetsee",
+    cat: "icm",
+    desc: "Integrates three frameworks: Van Clief's routing (backbone), Karpathy's behavioral rules (think before acting, minimum viable scope, surgical changes), and IBE intent preservation (why behind every decision). Key addition: a session state pattern (STATE.md) that eliminates cold-start friction. Zero context re-establishment validated across two real projects.",
+    links: [
+      { label: "GitLab", url: "https://gitlab.com/vigilkeep/ibe-workflow-template", type: "github" },
+      { label: "Community Post", url: "https://www.skool.com/cliefnotes/built-a-reusable-claude-code-project-template", type: "community" },
+    ]
+  },
+  {
+    id: "icm-knowledge-vault",
+    name: "ICM Knowledge Vault",
+    author: "Joao Arantes",
+    cat: "icm",
+    desc: "ICM workspace for learning ICM — using the method to learn the method. Claude Code writes to wiki/ (entities, concepts, sources, analysis); Obsidian is the read-only front-end. raw/ is immutable. Every claim links to a source. One ingest of a 22-min video cascades into ~10 cross-linked pages. 35+ sources, 84 pages after 3 months.",
+    links: [
+      { label: "GitHub", url: "https://github.com/jarantes-prog/icm-knowledge-vault", type: "github" },
+      { label: "Community Post", url: "https://www.skool.com/cliefnotes/i-built-an-icm-vault-to-learn-icm", type: "community" },
+    ]
+  },
+  {
+    id: "icm-local-model",
+    name: "ICM on Local Models",
+    author: "Curtis Slone",
+    cat: "icm",
+    desc: "Port of ICM to local models running via Ollama. Replaces model navigation with context injection per stage. Each generative stage is checked by a deterministic oracle (compiler + tests). Two repos: a Rust coding assistant and a reusable base for custom pipelines. Pure stdlib, MIT licensed.",
+    links: [
+      { label: "Rust Coding Assistant", url: "https://github.com/CurtisSlone/ICM-Local-Model-Rust-Coding-Assistant", type: "github" },
+      { label: "Reusable Base", url: "https://github.com/CurtisSlone/ICM-Local-Model-Base", type: "github" },
+    ]
+  },
+  {
+    id: "sem-debug",
+    name: "sem_debug",
+    author: "Max Walker",
+    cat: "icm",
+    desc: "ICM traceability layer addressing 'observability without traceability' (ICM paper section 6.2). Points at a stage output and its declared inputs, maps every passage back to its source, and flags unattributed text — where the agent went outside declared context. Runs inside ICM workspace structure.",
+    links: [
+      { label: "GitHub", url: "https://github.com/WBChain3/sem_debug", type: "github" },
+      { label: "Community Post", url: "https://www.skool.com/cliefnotes/i-read-jakes-paper-and-built-this", type: "community" },
+    ]
+  },
+  {
+    id: "folder-is-framework",
+    name: "Folder-is-the-Framework",
+    author: "Vamsi Acharya",
+    cat: "icm",
+    desc: "Simple multi-agent autonomous loops without complex orchestration. Built on ICM + a memory wiki, enhanced for autonomous workflows. Site includes a walkthrough of the architecture.",
+    links: [
+      { label: "GitHub", url: "https://github.com/vamsicyberrisk-oss/Folder-is-the-framework", type: "github" },
+      { label: "Site", url: "https://vamsicyberrisk-oss.github.io/Folder-is-the-framework/", type: "site" },
+    ]
+  },
+
+  // SHOW YOUR WORK — WORKFLOW & UTILITY
+  {
+    id: "ari-os",
+    name: "ARI-OS",
+    author: "Ari Evergreen",
+    cat: "workflow",
+    desc: "Open-source OS for directing AI work while you sleep. Six-step loop: Brainstorm → Plan → Dispatch → Watch → Review → Ship. Local-first memory, background worker dispatch, spec-first thinking. One install command on top of existing Claude Code setup. Built using the method it documents.",
+    links: [
+      { label: "GitHub", url: "https://github.com/PUSHINGSQUARES/ARI-OS", type: "github" },
+      { label: "Overview", url: "https://aris-space.com/documents/ari-os/overview", type: "site" },
+    ]
+  },
+  {
+    id: "astrid",
+    name: "Astrid",
+    author: "Arjen Stet",
+    cat: "workflow",
+    desc: "Card-based project assistant living entirely in plain JSON files you own — no database, no SaaS. Nine card types: project, action, meeting, contact, risk, issue, decision, milestone, deliverable. Reads your cards before speaking, surfaces what's urgent/late/stalled, and spots stagnation (project overdue for a steering report, action unmoved in 3 weeks).",
+    links: [
+      { label: "GitHub", url: "https://github.com/astetic-dev/astrid", type: "github" },
+      { label: "Demo Video", url: "https://youtu.be/Hv_I9FLQ6gA", type: "site" },
+    ]
+  },
+  {
+    id: "magpie-search",
+    name: "Magpie-search",
+    author: "Alex Parnell",
+    cat: "workflow",
+    desc: "Multi-source search engine for AI sessions. One query fans across 6 sources simultaneously: conversation history, files on the machine, a knowledge graph, a vector store, the live web, and YouTube. Designed to recover dropped context after crashes, SSH session losses, or power outages.",
+    links: [
+      { label: "GitHub", url: "https://github.com/xfloukiex-lab/magpie-search", type: "github" },
+    ]
+  },
+  {
+    id: "scroll-screen-player",
+    name: "scroll-screen-player",
+    author: "Curtis Slone",
+    cat: "workflow",
+    desc: "Presentation/animation timing tool. Full-screen, spacebar-triggered — you control when each piece or animation plays while speaking. Eliminates the pain of nudging keyframes to match your own delivery pace.",
+    links: [
+      { label: "GitHub", url: "https://github.com/CurtisSlone/scroll-screen-player", type: "github" },
+    ]
+  },
+  {
+    id: "gordon",
+    name: "Gordon (Project Accountability Worm)",
+    author: "Joshua Hubbard",
+    cat: "workflow",
+    desc: "An ICM-compliant 'pet' that lives in your project folder, wakes daily, reports how long since the folder moved, names your actual files, and has five moods (Hopeful → Wounded-but-dignified). Drop files in his food folder and the agent archives them dated. Say 'check on Gordon' in Claude Code to get a session-aware report. STATE.md is the single source of truth.",
+    links: [
+      { label: "Site", url: "https://hubbardjoshua9-a11y.github.io/gordon-worm/GORDON.html", type: "site" },
+    ]
+  },
+  {
+    id: "vera",
+    name: "VERA — Verified Evidence Research Analyst",
+    author: "Greg Faysash",
+    cat: "workflow",
+    desc: "ICM folder/skill for cancer patients evaluating supplements and alternative treatments. Refuses to answer before asking: cancer type, treatment, what's being evaluated, and potential interactions. Tags every source by evidence tier (RCT through anecdote), flags funding conflicts, and delivers a 6-page PDF formatted for a 12-minute oncology appointment.",
+    links: [
+      { label: "GitHub", url: "https://github.com/julianargus01/vera-researcher", type: "github" },
+      { label: "Live Demo", url: "https://julianargus01.github.io/vera-researcher/", type: "site" },
+    ]
+  },
+  {
+    id: "the-source-ai",
+    name: "The Source AI",
+    author: "Greg Faysash",
+    cat: "workflow",
+    desc: "Resource website combining an MCP scraper and a GitHub trending repo newsletter. Searchable index of MCPs and trending repositories, updated automatically.",
+    links: [
+      { label: "Site", url: "https://julianargus01.github.io/the-source-ai/", type: "site" },
+    ]
+  },
+
+  // SHOW YOUR WORK — DESIGN & MEDIA
+  {
+    id: "art-direct",
+    name: "art-direct",
+    author: "Ari Evergreen",
+    cat: "design",
+    desc: "Open-source skill for live-directing websites like a film set: one change, watch it land, call the next note. Inverts the prompt model — you react to a live render instead of writing briefs. Each named dial becomes a design system. Built to produce a CRT-monitor wall with glitch effects, custom shaders, and cursor interactions without typing a single prompt.",
+    links: [
+      { label: "GitHub", url: "https://github.com/Pushing-Squares/art-direct", type: "github" },
+    ]
+  },
+  {
+    id: "shade",
+    name: "Shade_",
+    author: "Ari Evergreen",
+    cat: "design",
+    desc: "Free macOS night mode overlay for color graders and dyslexic users. Warms everything except active grading/editing windows — cuts a live Passthrough hole over the windows needing true color. The hole follows and resizes with the window. Open source. Built for users who can't use Night Shift because it corrupts color-critical work.",
+    links: [
+      { label: "GitHub", url: "https://github.com/PUSHINGSQUARES/Shade_", type: "github" },
+      { label: "Site", url: "https://www.pushingsquares.com/shade", type: "site" },
+    ]
+  },
+
+  // SHOW YOUR WORK — MEDIA & CONTENT
+  {
+    id: "pushing-talk",
+    name: "Pushing Talk_",
+    author: "Ari Evergreen",
+    cat: "media",
+    desc: "Fully local dictation app for macOS. Hold a key, speak, release — transcription pastes wherever you're typing. Speech-to-text runs on-device via a local Whisper model. No cloud, no account, nothing leaves the Mac. Built because every cloud dictation tool sends voice data to a server you don't own.",
+    links: [
+      { label: "Deep-dive", url: "https://aris-space.com/documents/debugging/pushing-talk-finished-three-times", type: "site" },
+    ]
+  },
+
+  // SHOW YOUR WORK — EXTERNAL
+  {
+    id: "icm-cctv",
+    name: "icm-cctv",
+    author: "Neil Munro",
+    cat: "external",
+    desc: "Glass-box visual canvas for ICM agent pipelines. ICM decides what the agent does; ICM-CCTV decides what you see. Inspired by Vercel's json-render and the 'HTML as the new markdown' Anthropic engineering talks. Makes pipeline execution observable in real time.",
+    links: [
+      { label: "GitHub", url: "https://github.com/munronai/icm-cctv", type: "github" },
+    ]
+  },
+  {
+    id: "gitteam",
+    name: "GiTeam",
+    author: "David Herrera",
+    cat: "external",
+    desc: "Version control rebuilt for AI-age workflows. Auto-history saves every file change the moment it hits disk — no staging, no committing. Every snapshot is attributed (human or agent). Undo moves along a timeline, not a destructive stack. Edit from a past point and it forks into a tree, not a line. Ships with a full-screen cockpit: agent pane, file tree, editor, and scrubbable history.",
+    links: [
+      { label: "Community Post", url: "https://www.skool.com/cliefnotes/version-control-for-the-ai-age", type: "community" },
+    ]
+  },
+  {
+    id: "dreaming-memory-kit",
+    name: "Dreaming Memory Kit",
+    author: "Richárd Krusniczky",
+    cat: "external",
+    desc: "Folder-based implementation of Anthropic's 'dreaming' memory consolidation loop — 97% cheaper than running it as designed ($5/mo vs. $150-250/mo). Strips tool calls and file dumps before consolidation, sending only user/assistant text turns. Client-isolated: client A's data can't surface on client B. Cross-client patterns abstracted separately.",
+    links: [
+      { label: "Community Post", url: "https://www.skool.com/cliefnotes/i-built-a-folder-based-memory", type: "community" },
+    ]
+  },
+
+  // NEW — Show Your Work pages 4-11
+  {
+    id: "shipyard",
+    name: "Shipyard",
+    author: "Greg Faysash",
+    cat: "icm",
+    desc: "Guided tool-building workshop. Teaches the concepts before asking you to build. Session takes 20-30 minutes. You come out with a working tool and the mental model to build the next one without help.",
+    links: [
+      { label: "GitHub", url: "https://github.com/julianargus01/shipyard", type: "github" },
+      { label: "Site", url: "https://julianargus01.github.io/shipyard", type: "site" },
+    ]
+  },
+  {
+    id: "task-system",
+    name: "TaskSystem",
+    author: "Roc Lee",
+    cat: "workflow",
+    desc: "Markdown-only task management for AI sessions. No database, no app. Tasks live in files the agent reads directly. Includes an orchestrator layer (separate branch) for multi-stage work.",
+    links: [
+      { label: "GitHub", url: "https://github.com/rocleemusic/TaskSystem", type: "github" },
+    ]
+  },
+  {
+    id: "linkedin-wizard",
+    name: "LinkedIn Content Wizard",
+    author: "Don Roy",
+    cat: "writing",
+    desc: "Folder-based AI coach for sharing your AI journey on LinkedIn. Asks what you're working on, what you learned, what you'd tell someone starting out. Structures your answers into posts worth reading.",
+    links: [
+      { label: "GitHub", url: "https://github.com/donroy26/Linkedin-content-wizard", type: "github" },
+      { label: "Site", url: "https://donroy26.github.io/Linkedin-content-wizard/", type: "site" },
+    ]
+  },
+  {
+    id: "diana-agent",
+    name: "Diana Agency Assistant",
+    author: "Don Roy",
+    cat: "icm",
+    desc: "Folder-based AI assistant built for real estate agents. Handles property writeups, client outreach, and follow-up sequencing. ICM competition entry.",
+    links: [
+      { label: "GitHub", url: "https://github.com/donroy26/Diana-Agency-Assistant", type: "github" },
+    ]
+  },
+  {
+    id: "zuki",
+    name: "Zuki Personal AI OS",
+    author: "Paul Vehoff",
+    cat: "external",
+    desc: "Python-based personal AI OS with multi-provider LLM routing. Switch between Claude, GPT, Gemini, and others from one interface. Local-first, self-hosted.",
+    links: [
+      { label: "GitHub", url: "https://github.com/ehwohl/Zuki", type: "github" },
+    ]
+  },
+  {
+    id: "pushing-dispatch",
+    name: "Pushing-Dispatch",
+    author: "Ari Evergreen",
+    cat: "workflow",
+    desc: "Dispatch orchestrator sitting above Claude Code sessions. Assigns tasks to sub-agents, monitors outputs, and sequences work across a queue. Part of Ari's ARI-OS ecosystem.",
+    links: [
+      { label: "GitHub", url: "https://github.com/PUSHINGSQUARES/Pushing-Dispatch_", type: "github" },
+    ]
+  },
+  {
+    id: "signal-harmonics",
+    name: "Signal Harmonics",
+    author: "Alexander Paschka",
+    cat: "external",
+    desc: "Cross-domain correlation instrument. Feed it disparate datasets or topics — it maps structural similarities across disciplines that don't obviously connect. Live demo on the site.",
+    links: [
+      { label: "GitHub", url: "https://github.com/ajpaschka/signal-harmonics", type: "github" },
+      { label: "Site", url: "https://ajpaschka.github.io/signal-harmonics", type: "site" },
+    ]
+  },
+  {
+    id: "creator-orchestrator",
+    name: "Creator Orchestrator Template",
+    author: "Gabriel Azoulay",
+    cat: "icm",
+    desc: "Production-tested full ICM architecture template. Routing, stages, context layers, and memory pattern already wired. Gabriel ran it through a real content production cycle before releasing it.",
+    links: [
+      { label: "GitHub", url: "https://github.com/NFTYoginis/creator-orchestrator-template", type: "github" },
+    ]
+  },
+  {
+    id: "youtube-tutor-template",
+    name: "YouTube Tutor Template",
+    author: "Aaron Beadles",
+    cat: "icm",
+    desc: "Builds an AI tutor from any YouTube channel. Feed it a channel URL, it extracts the knowledge base and creates an interactive teacher. Reusable for any subject.",
+    links: [
+      { label: "GitHub", url: "https://github.com/aaronb458/youtube-tutor-template", type: "github" },
+    ]
+  },
+  {
+    id: "pafa",
+    name: "Pipeline-As-File-Architecture (PAFA)",
+    author: "Raymond Fenton",
+    cat: "icm",
+    desc: "Expresses entire data pipelines as file structures instead of code. Each stage is a file, transformation logic lives in context files, and the AI navigates by reading the folder. ICM applied to data engineering.",
+    links: [
+      { label: "GitHub", url: "https://github.com/BlueSkyGTM/pipeline-as-file-architecture", type: "github" },
+    ]
+  },
+  {
+    id: "idea-vault",
+    name: "Idea Vault",
+    author: "Mars B.",
+    cat: "workflow",
+    desc: "Free methodology for capturing ideas before they disappear. Structured intake for raw ideas, plus a review cycle to separate the ones worth building from the ones that sounded good at 11pm.",
+    links: [
+      { label: "kollabs.ai", url: "https://kollabs.ai/tools/idea-vault", type: "site" },
+    ]
+  },
+  {
+    id: "agent-benchmarking",
+    name: "Agent Benchmarking Workflow",
+    author: "Frank Brsrk",
+    cat: "workflow",
+    desc: "Multi-turn agent benchmarking using n8n, Python, and agentic IDEs. Runs a standardized evaluation suite across agent versions, measures regression, and outputs comparison reports.",
+    links: [
+      { label: "GitHub", url: "https://github.com/ejentum/eval", type: "github" },
+    ]
+  },
+  {
+    id: "obsidian-ace",
+    name: "Obsidian ACE Method Skills",
+    author: "Yanick Fischer",
+    cat: "workflow",
+    desc: "Claude Code skills built around Nick Milo's ACE method and Ideaverse framework. Bridges Claude Code sessions with Obsidian vaults — captures, processes, and links knowledge without leaving your IDE.",
+    links: [
+      { label: "GitHub", url: "https://github.com/yanickfischer/obsidian-ACE-method-skills", type: "github" },
+    ]
+  },
+  {
+    id: "pmm-folder-nontechnical",
+    name: "PMM Folder Template (Non-Technical)",
+    author: "Maggie Copeland",
+    cat: "memory",
+    desc: "Stripped-down ICM folder template for people without a dev background. Gets you to a working PMM-style memory setup in one folder copy. No CLI, no config files, no code.",
+    links: [
+      { label: "GitHub", url: "https://github.com/maggiecopeland0-prog/pmm_folder", type: "github" },
+    ]
+  },
+  {
+    id: "icm-specialist-coaches",
+    name: "ICM Specialist Coaches",
+    author: "Gabriel Azoulay",
+    cat: "icm",
+    desc: "Domain-specific ICM coaches built on the folder-based architecture: first-year yoga teacher, Thai massage practitioner, and tech-Thai reading coach. Three repos, each a standalone expert-knowledge agent.",
+    links: [
+      { label: "Yoga Teacher Coach", url: "https://github.com/NFTYoginis/first-year-yoga-teacher-coach", type: "github" },
+    ]
+  },
+
+  // NEW — Resources & Finds pages 1-2
+  {
+    id: "skillopt",
+    name: "SkillOpt",
+    author: "Curtis Hays / Microsoft",
+    cat: "workflow",
+    desc: "Auto-optimizes AI agent skill files. Run it against any skill, it rewrites for clarity, completeness, and trigger accuracy. Benchmarked at +19.1 points on agent evaluation suites. Open-sourced by Microsoft.",
+    links: [
+      { label: "GitHub", url: "https://github.com/microsoft/SkillOpt", type: "github" },
+    ]
+  },
+  {
+    id: "codebase-memory-mcp",
+    name: "Codebase Memory MCP",
+    author: "Will Foster",
+    cat: "memory",
+    desc: "Persistent knowledge graph for codebases. Maps entities, relationships, and context once — then serves targeted retrieval instead of full re-reads. 99% fewer tokens on retrieval vs. loading the codebase fresh each session.",
+    links: [
+      { label: "GitHub", url: "https://github.com/DeusData/codebase-memory-mcp", type: "github" },
+    ]
+  },
+  {
+    id: "nightwatch",
+    name: "Nightwatch",
+    author: "Gabriel Azoulay",
+    cat: "workflow",
+    desc: "On-call alert triage operator. Scores incoming alerts by severity, routes to the right responder, and drafts the initial incident summary. Competition entry — live demo on the site.",
+    links: [
+      { label: "GitHub", url: "https://github.com/NFTYoginis/nightwatch", type: "github" },
+      { label: "Site", url: "https://nftyoginis.github.io/nightwatch", type: "site" },
+    ]
+  },
+  {
+    id: "porter",
+    name: "Porter",
+    author: "Arjen Stet",
+    cat: "workflow",
+    desc: "Email inbox operator for project managers. Reads incoming messages, extracts action items, and populates project files in the same card-based format as Astrid. Routes information to the right project without manual sorting.",
+    links: [
+      { label: "GitHub", url: "https://github.com/astetic-dev/porter-intake-operator", type: "github" },
+    ]
+  },
+  {
+    id: "the-maintainer",
+    name: "The Maintainer",
+    author: "Toby Iverson",
+    cat: "workflow",
+    desc: "GitHub issue triage agent. Reads new issues, classifies by type and priority, applies labels, drafts a triage comment, and routes to the correct team. Cuts the gap between 'issue opened' and 'someone understands it.'",
+    links: [
+      { label: "GitHub", url: "https://github.com/BytesFromToby/The-Maintainer", type: "github" },
+    ]
+  },
+  {
+    id: "repo-router",
+    name: "RepoRouter",
+    author: "Toby Iverson",
+    cat: "workflow",
+    desc: "Live repository issue routing. Monitors a GitHub repo in real time, pulls new issues, and routes them to the correct team or label set based on configurable rules. Companion to The Maintainer.",
+    links: [
+      { label: "GitHub", url: "https://github.com/BytesFromToby/RepoRouter", type: "github" },
+    ]
+  },
+  {
+    id: "subscription-auditor",
+    name: "Subscription Auditor",
+    author: "Sunny Singh",
+    cat: "workflow",
+    desc: "Reviews your active subscriptions and outputs KEEP / DOWNGRADE / CANCEL for each one. Based on usage frequency, cost, and overlap with other tools in your stack. Takes minutes.",
+    links: [
+      { label: "GitHub", url: "https://github.com/ms-codehorizon/subscription-auditor", type: "github" },
+    ]
+  },
+  {
+    id: "icm-copilot-cowork",
+    name: "ICM-Copilot-Cowork",
+    author: "Colm Whelan",
+    cat: "icm",
+    desc: "ICM workspace template adapted for Microsoft Copilot Cowork users. Same folder-based routing and context structure as Claude Code ICM, ported to Microsoft's AI agent environment.",
+    links: [
+      { label: "GitHub", url: "https://github.com/RockfieldIT/icm-copilot-cowork", type: "github" },
     ]
   },
 ];
