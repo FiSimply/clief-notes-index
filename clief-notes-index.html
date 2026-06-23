@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clief Notes — Resource Index</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #22263a;
+    --border: #2e3350;
+    --accent: #6c63ff;
+    --accent2: #00d4aa;
+    --text: #e8e9f0;
+    --muted: #8b8fa8;
+    --tag-memory: #3d2b7a;
+    --tag-memory-t: #b89ef7;
+    --tag-icm: #1e4a6e;
+    --tag-icm-t: #7ecfff;
+    --tag-writing: #3a2e1e;
+    --tag-writing-t: #f5c87a;
+    --tag-design: #2a3a1e;
+    --tag-design-t: #a8e06b;
+    --tag-media: #3a1e2e;
+    --tag-media-t: #f07ab8;
+    --tag-workflow: #1e3a3a;
+    --tag-workflow-t: #6beee0;
+    --tag-external: #3a2a1e;
+    --tag-external-t: #f0a86b;
+    --card-hover: #1e2235;
+    --star: #f0c040;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 28px 40px 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+  }
+
+  .header-top {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+
+  header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    color: var(--text);
+  }
+
+  header h1 span {
+    color: var(--accent);
+  }
+
+  .subtitle {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .controls {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  #search {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 14px;
+    padding: 9px 14px;
+    width: 280px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  #search::placeholder { color: var(--muted); }
+  #search:focus { border-color: var(--accent); }
+
+  .filter-tabs {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 12px;
+    padding: 5px 13px;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+
+  .filter-btn:hover { border-color: var(--accent); color: var(--text); }
+
+  .filter-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+    font-weight: 600;
+  }
+
+  .stats-bar {
+    font-size: 12px;
+    color: var(--muted);
+    margin-left: auto;
+    white-space: nowrap;
+  }
+
+  main {
+    padding: 32px 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 32px 0 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-header .count {
+    background: var(--surface2);
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 1px 8px;
+    color: var(--muted);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 14px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    transition: all 0.15s;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    cursor: default;
+    position: relative;
+  }
+
+  .card:hover {
+    background: var(--card-hover);
+    border-color: var(--accent);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(108,99,255,0.12);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .card-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .star-btn {
+    background: none;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 18px;
+    padding: 0;
+    flex-shrink: 0;
+    transition: color 0.15s, transform 0.1s;
+    line-height: 1;
+  }
+
+  .star-btn:hover { transform: scale(1.2); }
+  .star-btn.starred { color: var(--star); }
+
+  .card-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .author {
+    font-size: 12px;
+    color: var(--accent2);
+    font-weight: 600;
+  }
+
+  .tag {
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 2px 7px;
+    text-transform: uppercase;
+  }
+
+  .tag-memory    { background: var(--tag-memory);   color: var(--tag-memory-t); }
+  .tag-icm       { background: var(--tag-icm);      color: var(--tag-icm-t); }
+  .tag-writing   { background: var(--tag-writing);  color: var(--tag-writing-t); }
+  .tag-design    { background: var(--tag-design);   color: var(--tag-design-t); }
+  .tag-media     { background: var(--tag-media);    color: var(--tag-media-t); }
+  .tag-workflow  { background: var(--tag-workflow); color: var(--tag-workflow-t); }
+  .tag-external  { background: var(--tag-external); color: var(--tag-external-t); }
+
+  .card-desc {
+    font-size: 13px;
+    color: #b0b3c8;
+    line-height: 1.55;
+  }
+
+  .card-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  .link-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 12px;
+    padding: 4px 10px;
+    text-decoration: none;
+    transition: all 0.15s;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .link-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .link-btn.github { border-color: #30363d; color: #8b949e; }
+  .link-btn.github:hover { border-color: #fff; color: #fff; }
+
+  .link-btn.community { border-color: var(--tag-memory); color: var(--tag-memory-t); }
+  .link-btn.community:hover { background: var(--tag-memory); }
+
+  .link-btn.site { border-color: var(--tag-design); color: var(--tag-design-t); }
+  .link-btn.site:hover { background: var(--tag-design); }
+
+  .notes-section {
+    margin-top: 4px;
+  }
+
+  .notes-toggle {
+    background: none;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 12px;
+    padding: 0;
+    text-align: left;
+    transition: color 0.15s;
+  }
+
+  .notes-toggle:hover { color: var(--text); }
+
+  .notes-input {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 12px;
+    margin-top: 6px;
+    outline: none;
+    padding: 8px 10px;
+    resize: vertical;
+    width: 100%;
+    min-height: 64px;
+    transition: border-color 0.2s;
+    display: none;
+  }
+
+  .notes-input:focus { border-color: var(--accent); }
+  .notes-input.visible { display: block; }
+
+  .empty-state {
+    text-align: center;
+    padding: 60px 0;
+    color: var(--muted);
+    font-size: 15px;
+  }
+
+  .empty-state span { font-size: 40px; display: block; margin-bottom: 12px; }
+
+  footer {
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 40px;
+    padding: 20px 40px;
+    text-align: center;
+  }
+
+  .no-results-section { display: none; }
+  .section-group { }
+  .section-group.hidden { display: none; }
+
+  @media (max-width: 700px) {
+    header { padding: 20px; }
+    main { padding: 20px; }
+    .grid { grid-template-columns: 1fr; }
+    #search { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <h1>Clief<span>Notes</span> Index</h1>
+    <span class="subtitle">Community tools, skills &amp; resources — Mar–Jun 2026</span>
+  </div>
+  <div class="controls">
+    <input id="search" type="text" placeholder="Search tools, authors, descriptions..." autocomplete="off">
+    <div class="filter-tabs">
+      <button class="filter-btn active" data-cat="all">All</button>
+      <button class="filter-btn" data-cat="memory">Memory</button>
+      <button class="filter-btn" data-cat="icm">ICM / Workspace</button>
+      <button class="filter-btn" data-cat="writing">Writing</button>
+      <button class="filter-btn" data-cat="design">Design / UI</button>
+      <button class="filter-btn" data-cat="media">Media</button>
+      <button class="filter-btn" data-cat="workflow">Workflow</button>
+      <button class="filter-btn" data-cat="external">External</button>
+      <button class="filter-btn" data-cat="starred">Starred</button>
+    </div>
+    <span class="stats-bar" id="stats"></span>
+  </div>
+</header>
+
+<main id="main"></main>
+
+<footer>
+  Last updated June 2026 · Ratings &amp; notes saved locally in your browser · Based on Clief Notes community posts
+</footer>
+
+<script>
+const TOOLS = [
+  // MEMORY
+  {
+    id: "pmm",
+    name: "PMM — Poor Man's Memory",
+    author: "Millennial Cat",
+    cat: "memory",
+    desc: "The flagship community memory tool. Open-source plugin for Claude Code and CoWork giving agents persistent, structured memory across sessions using a plain folder/file system. Uses slash commands: /pmm:init, /pmm:hydrate, /pmm:save, /pmm:recall. Achieves 0.08 of perfectly-stuffed oracle context efficiency.",
+    links: [
+      { label: "Community Post", url: "https://skool.com/cliefnotes/multi-agent-memory-management-with-folders-and-files", type: "community" },
+      { label: "nominex.org", url: "https://nominex.org", type: "site" },
+      { label: "YouTube", url: "https://youtube.com/@nominexai", type: "site" },
+    ]
+  },
+  {
+    id: "session-memory",
+    name: "Session Memory Layer",
+    author: "Deacon Wardlow",
+    cat: "memory",
+    desc: "Adds a session continuity layer on top of PMM. Separates long-term 'what Claude knows about you' memory from short-term 'what we worked on yesterday' memory. Uses a rolling session log (last 10 sessions) plus persistent open-threads tracking.",
+    links: [
+      { label: "Community Post", url: "https://skool.com/cliefnotes/session-memory-layer-pmm-never-lose-context-again-in-claude-cowork", type: "community" },
+    ]
+  },
+  {
+    id: "cortex",
+    name: "Cortex",
+    author: "Ari Evergreen",
+    cat: "memory",
+    desc: "Memory layer modeled on human neuroanatomy: tagged memory regions, typed memory edges (\"tracts\") that strengthen with use, a five-tier consolidation system (raw → session → daily → weekly → promoted fact), and auto-recall injection at session start. Runs locally, model-agnostic.",
+    links: [
+      { label: "aris-space.com", url: "https://aris-space.com/documents/memory/cortex", type: "site" },
+    ]
+  },
+
+  // ICM
+  {
+    id: "brofessor",
+    name: "Brofessor",
+    author: "Yucky Yuckyyyy",
+    cat: "icm",
+    desc: "The community's most-celebrated skill. An ICM-based workspace auditor that checks docs, routing, stages, review gates, and context-loading patterns. Finds bloat, confusion, contradiction, and overbuilt process. Proposes the smallest safe fix, waits for approval, executes what you approve, then synthesizes. Supports swappable personas via CONFIG.md. Built in 3 prompts.",
+    links: [
+      { label: "Community Post", url: "https://skool.com/cliefnotes/class-meet-brofessor", type: "community" },
+    ]
+  },
+  {
+    id: "icm-builder",
+    name: "ICM-Builder Skill",
+    author: "Carlos Pecucci",
+    cat: "icm",
+    desc: "Scaffolds ICM projects, generates routing tables, and tracks what needs updating when you change a contract or reference file across stages.",
+    links: [
+      { label: "GitHub", url: "https://github.com/carloswecare/icm-builder", type: "github" },
+    ]
+  },
+  {
+    id: "icm-architect",
+    name: "ICM Workspace Architect",
+    author: "Frank Schwarz",
+    cat: "icm",
+    desc: "Vibe-coded skill for architecting ICM workspaces from scratch. Generates structure, routing, and stage definitions.",
+    links: [
+      { label: "GitHub", url: "https://github.com/blackghostosint/icm-workspace-architect", type: "github" },
+    ]
+  },
+  {
+    id: "foundations-tutor",
+    name: "ICM Foundations Tutor",
+    author: "Don Roy",
+    cat: "icm",
+    desc: "A custom AI Tutor folder-based agent with Jake's and Matthew Creamer's complete Foundations course knowledge and teaching methodology baked in. Walks you through ICM step by step, checks your work, won't let you move forward until you understand.",
+    links: [
+      { label: "Community Post", url: "https://skool.com/cliefnotes/a-foundations-tutor-for-those-who-need-more", type: "community" },
+    ]
+  },
+  {
+    id: "dev-tutor",
+    name: "Dev Fundamentals Tutor",
+    author: "Don Roy",
+    cat: "icm",
+    desc: "A folder-based agent teaching software development fundamentals (based on roadmap.sh curriculum) for those without formal dev training. Interactive and progress-tracking.",
+    links: [
+      { label: "Community Post", url: "https://skool.com/cliefnotes/want-to-beef-up-your-dev-fundamentals", type: "community" },
+    ]
+  },
+
+  // WRITING
+  {
+    id: "critical-editor",
+    name: "Critical Editor / Stop the Sycophancy",
+    author: "Deacon Wardlow",
+    cat: "writing",
+    desc: "A full Claude skill that overrides Claude's default praise-first behavior. Opens with a revision score (0–100%), leads with the three biggest structural problems, quotes specific lines, and ends with a full rewrite. Complete skill prompt included in post.",
+    links: [
+      { label: "Community Post", url: "https://skool.com/cliefnotes/stop-the-sycophancy-claude-skill", type: "community" },
+    ]
+  },
+  {
+    id: "council-of-5",
+    name: "Council of 5",
+    author: "Megan Hayward",
+    cat: "writing",
+    desc: "Runs any question, problem, or document through 5 distinct AI personalities (The Professor, The Teacher, The Founder, The Outsider, The Contrarian) with 3 rounds of discussion, then synthesizes to consensus. Skill shared in post comments.",
+    links: [
+      { label: "Search Community", url: "https://skool.com/cliefnotes", type: "community" },
+    ]
+  },
+
+  // DESIGN
+  {
+    id: "tastecheck",
+    name: "tastecheck",
+    author: "Simon Gonzalez De Cruz",
+    cat: "design",
+    desc: "Free MIT-licensed skill pack (14 skills) for AI coding agents to break out of generic 'AI slop' UI. Runs a design taste interview before building — asking about reference sites, color, feel, and what to avoid. Skills: typography, color, layout, responsive behavior, component states, forms, dark mode, motion, accessibility, design review.",
+    links: [
+      { label: "GitHub", url: "https://github.com/KyaniteLabs/tastecheck", type: "github" },
+      { label: "Samples", url: "https://kyanitelabs.github.io/tastecheck/samples/", type: "site" },
+    ]
+  },
+  {
+    id: "weirdness-engine",
+    name: "Weirdness Engine",
+    author: "Seth Jenks",
+    cat: "design",
+    desc: "A tool to introduce calibrated 'weirdness' into AI software designs so they're more creative without being alienating. Dial up differentiation while keeping UX intact.",
+    links: [
+      { label: "GitHub", url: "https://github.com/sethjenks/weirdness-engine", type: "github" },
+    ]
+  },
+  {
+    id: "design-md",
+    name: "DESIGN.md Style Extractor",
+    author: "Roc Lee (shared)",
+    cat: "design",
+    desc: "A Chrome extension that creates a DESIGN.md of any website — captures its visual style (colors, typography, spacing, components) for use as a Claude context file. Captures someone else's design system in seconds.",
+    links: [
+      { label: "GitHub", url: "https://github.com/bergside/design-md-chrome", type: "github" },
+    ]
+  },
+  {
+    id: "open-design",
+    name: "Open Design",
+    author: "Simon Gonzalez De Cruz",
+    cat: "design",
+    desc: "Open-source alternative to Claude Design. Local-first, BYOK, auto-detects 16 coding CLI agents (Claude Code, Codex, Cursor, Gemini CLI, Hermes, Kimi, etc.) as the design engine. Comes with 31 composable skills and 72 brand-grade design systems.",
+    links: [
+      { label: "open-design.ai", url: "https://open-design.ai", type: "site" },
+    ]
+  },
+
+  // MEDIA
+  {
+    id: "to-md",
+    name: "to-md (Document Preprocessor)",
+    author: "Ari Evergreen",
+    cat: "media",
+    desc: "Converts .pdf, .docx, .pptx, and .xlsx into lean Markdown — strips layout/formatting tokens you never needed. Writes both a faithful and a minimal version. Includes a Claude Code skill that fires when you hand it a document. Reduces wasted context tokens significantly.",
+    links: []
+  },
+  {
+    id: "pushing-creation",
+    name: "Pushing-Creation (Image/Video Generation)",
+    author: "Ari Evergreen",
+    cat: "media",
+    desc: "Installs as a Claude Code skill. Uses a cinematic 'director of photography' briefing methodology. Generates images and video from within a Claude session via /frames-brainstorm and /frames-gen. API keys stored in macOS Keychain — never in Claude's context.",
+    links: [
+      { label: "aris-space.com", url: "https://aris-space.com", type: "site" },
+    ]
+  },
+  {
+    id: "yt-extraction",
+    name: "YouTube Knowledge Extraction Pipeline",
+    author: "Daniel Terry",
+    cat: "media",
+    desc: "Workflow: YouTube URL in → Claude extracts 3–7 discrete structured claims (Concept, Mechanism, So What, Open Questions) → appended to a local markdown log. Designed for use on Jake's and other community videos. GitHub in post comments.",
+    links: [
+      { label: "Search Community", url: "https://skool.com/cliefnotes", type: "community" },
+    ]
+  },
+  {
+    id: "typewhisper",
+    name: "TypeWhisper",
+    author: "Simon Gonzalez De Cruz (shared)",
+    cat: "media",
+    desc: "Free, open-source, fully local speech-to-text app. Press a hotkey, speak, transcription pastes into any app. Supports multiple engines (WhisperKit, Parakeet, Voxtral, Apple Speech, etc.), per-app profiles, file transcription, live transcript, and plugin system.",
+    links: [
+      { label: "GitHub", url: "https://github.com/TypeWhisper", type: "github" },
+    ]
+  },
+
+  // WORKFLOW
+  {
+    id: "prompt-queen",
+    name: "Prompt Queen",
+    author: "Don Roy",
+    cat: "workflow",
+    desc: "A simple ICM-folder-based planning framework that checkpoints Claude before it jumps to implementation. Ensures you've actually nailed your goal before handoff.",
+    links: [
+      { label: "GitHub", url: "https://github.com/donroy26/prompt-queen", type: "github" },
+    ]
+  },
+  {
+    id: "brainstorming-skill",
+    name: "Brainstorming Skill",
+    author: "Ari Evergreen",
+    cat: "workflow",
+    desc: "A 9-step structured skill the agent runs on itself before any build: explores context, asks clarifying questions one at a time, proposes 2–3 approaches, writes a spec doc, self-reviews the spec, and only hands to implementation after human approval. The hard gate (no code until spec approved) is the key mechanism.",
+    links: []
+  },
+  {
+    id: "pi-skills",
+    name: "pi-skills",
+    author: "Garratt Campton (shared)",
+    cat: "workflow",
+    desc: "Scripts that replace bloated MCPs (Playwright, Puppeteer, Chrome browser MCP) with lean executable code. Works with Claude, Codex, Gemini, Hermes. Significant token savings over browser MCP alternatives.",
+    links: [
+      { label: "GitHub", url: "https://github.com/badlogic/pi-skills", type: "github" },
+    ]
+  },
+  {
+    id: "marketing-skills",
+    name: "Marketing Skills 2.0",
+    author: "Corey Haines (shared by Garratt Campton)",
+    cat: "workflow",
+    desc: "A GitHub-hosted set of marketing skills for AI agents — covering copywriting, positioning, and campaign workflows.",
+    links: [
+      { label: "GitHub", url: "https://github.com/coreyhaines31/marketingskills", type: "github" },
+    ]
+  },
+  {
+    id: "vercel-agent-browser",
+    name: "Vercel Agent-Browser",
+    author: "Xephry Ng (shared)",
+    cat: "workflow",
+    desc: "A drop-in Playwright replacement for AI browser automation that returns compact page snapshots (reference IDs instead of full DOM trees). Reportedly saves 82–93% on context tokens versus standard browser MCPs.",
+    links: [
+      { label: "GitHub", url: "https://github.com/vercel-labs/agent-browser", type: "github" },
+    ]
+  },
+  {
+    id: "shortcut-launcher",
+    name: "Desktop Shortcut Launcher (.bat)",
+    author: "Don Roy",
+    cat: "workflow",
+    desc: "A batch file you drop into any folder — creates a desktop shortcut that launches Claude Code directly into that folder. Simple quality-of-life tool for Windows users.",
+    links: [
+      { label: "Community Post", url: "https://skool.com/cliefnotes/launch-your-claude-codex-project-with-a-desktop-shortcut", type: "community" },
+    ]
+  },
+  {
+    id: "praxis-library",
+    name: "Praxis Library",
+    author: "Bas Rosario",
+    cat: "workflow",
+    desc: "Free, open web knowledge base: 5,319 AI term glossary, 175 prompt techniques & frameworks, interactive tools including Prompt Analyzer, Prompt Builder, Technique Finder, Persona Architect, Hallucination Spotter, Preflight Checklist, and Readiness Quiz. No trackers.",
+    links: [
+      { label: "praxislibrary.com", url: "https://praxislibrary.com", type: "site" },
+    ]
+  },
+
+  // EXTERNAL
+  {
+    id: "miessler-pai",
+    name: "Personal AI Infrastructure",
+    author: "Daniel Miessler",
+    cat: "external",
+    desc: "22,000+ hours of dev. 45 skills, 171 workflows, 37 safety hooks. Runs on Claude Code. Free to install. One of the most comprehensive personal AI infrastructure projects available publicly.",
+    links: [
+      { label: "GitHub", url: "https://github.com/danielmiessler/Personal_AI_Infrastructure", type: "github" },
+    ]
+  },
+  {
+    id: "hermes",
+    name: "Hermes Agent",
+    author: "Nous Research",
+    cat: "external",
+    desc: "Open-source self-improving agent. Writes its own Python skills, persistent memory across sessions, 40+ built-in tools, model-agnostic. Now has a desktop app (Hermes Desktop).",
+    links: [
+      { label: "hermesguide.xyz", url: "https://hermesguide.xyz", type: "site" },
+    ]
+  },
+  {
+    id: "open-brain",
+    name: "Open Brain (OB1)",
+    author: "David Vogel (shared)",
+    cat: "external",
+    desc: "Shared memory layer across any AI (Claude, ChatGPT, Cursor). One Supabase Postgres table with vector search — any model reads/writes the same memory store.",
+    links: []
+  },
+  {
+    id: "jcode",
+    name: "jcode",
+    author: "Community",
+    cat: "external",
+    desc: "Claude Code alternative harness in Rust: 14 ms cold start, 27.8 MB idle RAM, self-modifying (agents can edit the harness's own source mid-session). Search 'jcode' in the community for the GitHub link.",
+    links: [
+      { label: "Search Community", url: "https://skool.com/cliefnotes", type: "community" },
+    ]
+  },
+  {
+    id: "understand-anything",
+    name: "Understand Anything",
+    author: "Egonex AI",
+    cat: "external",
+    desc: "Turn any codebase into an interactive knowledge graph. Maps dependencies, surfaces entry points, and lets you query the codebase conversationally.",
+    links: [
+      { label: "GitHub", url: "https://github.com/Egonex-AI/Understand-Anything", type: "github" },
+    ]
+  },
+];
+
+const CATEGORIES = [
+  { id: "memory",   label: "Memory & Context",    tagClass: "tag-memory" },
+  { id: "icm",      label: "ICM / Workspace",      tagClass: "tag-icm" },
+  { id: "writing",  label: "Writing & Feedback",   tagClass: "tag-writing" },
+  { id: "design",   label: "Design & UI",          tagClass: "tag-design" },
+  { id: "media",    label: "Media & Content",      tagClass: "tag-media" },
+  { id: "workflow", label: "Workflow & Utility",   tagClass: "tag-workflow" },
+  { id: "external", label: "External Frameworks",  tagClass: "tag-external" },
+];
+
+const CAT_MAP = {};
+CATEGORIES.forEach(c => CAT_MAP[c.id] = c);
+
+// --- State ---
+let activeFilter = "all";
+let searchQuery = "";
+
+function getStarred() {
+  try { return JSON.parse(localStorage.getItem("cn_starred") || "{}"); } catch { return {}; }
+}
+
+function setStarred(obj) {
+  localStorage.setItem("cn_starred", JSON.stringify(obj));
+}
+
+function getNote(id) {
+  try { return localStorage.getItem("cn_note_" + id) || ""; } catch { return ""; }
+}
+
+function setNote(id, val) {
+  localStorage.setItem("cn_note_" + id, val);
+}
+
+function toggleStar(id) {
+  const s = getStarred();
+  if (s[id]) delete s[id]; else s[id] = true;
+  setStarred(s);
+  const btn = document.querySelector(`[data-star="${id}"]`);
+  if (btn) btn.classList.toggle("starred", !!s[id]);
+  if (activeFilter === "starred") render();
+}
+
+function toggleNotes(id) {
+  const input = document.getElementById("note_" + id);
+  const btn = document.getElementById("ntoggle_" + id);
+  if (!input) return;
+  if (input.classList.contains("visible")) {
+    input.classList.remove("visible");
+    btn.textContent = "+ Add note";
+  } else {
+    input.classList.add("visible");
+    input.focus();
+    btn.textContent = "Hide note";
+  }
+}
+
+function linkIcon(type) {
+  if (type === "github") return "⌥";
+  if (type === "community") return "◆";
+  if (type === "site") return "↗";
+  return "→";
+}
+
+function renderCard(tool) {
+  const starred = getStarred();
+  const note = getNote(tool.id);
+  const cat = CAT_MAP[tool.cat] || {};
+  const isStarred = !!starred[tool.id];
+
+  const linksHTML = tool.links.map(l =>
+    `<a class="link-btn ${l.type}" href="${l.url}" target="_blank" rel="noopener">${linkIcon(l.type)} ${l.label}</a>`
+  ).join("");
+
+  return `
+    <div class="card" data-id="${tool.id}" data-cat="${tool.cat}">
+      <div class="card-header">
+        <div class="card-title">${tool.name}</div>
+        <button class="star-btn ${isStarred ? 'starred' : ''}" data-star="${tool.id}" onclick="toggleStar('${tool.id}')" title="${isStarred ? 'Unstar' : 'Star'}">★</button>
+      </div>
+      <div class="card-meta">
+        <span class="author">${tool.author}</span>
+        <span class="tag ${cat.tagClass || ''}">${cat.label || tool.cat}</span>
+      </div>
+      <div class="card-desc">${tool.desc}</div>
+      ${linksHTML ? `<div class="card-links">${linksHTML}</div>` : ""}
+      <div class="notes-section">
+        <button class="notes-toggle" id="ntoggle_${tool.id}" onclick="toggleNotes('${tool.id}')">${note ? "📝 View note" : "+ Add note"}</button>
+        <textarea class="notes-input ${note ? 'visible' : ''}" id="note_${tool.id}" placeholder="Your private notes on this tool..."
+          oninput="setNote('${tool.id}', this.value)">${note}</textarea>
+      </div>
+    </div>
+  `;
+}
+
+function getFilteredTools() {
+  const starred = getStarred();
+  const q = searchQuery.toLowerCase();
+  return TOOLS.filter(t => {
+    if (activeFilter === "starred" && !starred[t.id]) return false;
+    if (activeFilter !== "all" && activeFilter !== "starred" && t.cat !== activeFilter) return false;
+    if (!q) return true;
+    return (
+      t.name.toLowerCase().includes(q) ||
+      t.author.toLowerCase().includes(q) ||
+      t.desc.toLowerCase().includes(q) ||
+      t.cat.toLowerCase().includes(q)
+    );
+  });
+}
+
+function render() {
+  const main = document.getElementById("main");
+  const filtered = getFilteredTools();
+
+  if (filtered.length === 0) {
+    main.innerHTML = `<div class="empty-state"><span>🔍</span>No tools match "${searchQuery || activeFilter}"</div>`;
+    document.getElementById("stats").textContent = "0 results";
+    return;
+  }
+
+  document.getElementById("stats").textContent = `${filtered.length} of ${TOOLS.length} tools`;
+
+  if (activeFilter !== "all" && activeFilter !== "starred") {
+    main.innerHTML = `<div class="grid">${filtered.map(renderCard).join("")}</div>`;
+    return;
+  }
+
+  // Group by category
+  let html = "";
+  const starred = getStarred();
+
+  if (activeFilter === "starred") {
+    html = `<div class="grid">${filtered.map(renderCard).join("")}</div>`;
+  } else {
+    CATEGORIES.forEach(cat => {
+      const catTools = filtered.filter(t => t.cat === cat.id);
+      if (!catTools.length) return;
+      html += `
+        <div class="section-group">
+          <div class="section-header">
+            ${cat.label}
+            <span class="count">${catTools.length}</span>
+          </div>
+          <div class="grid">${catTools.map(renderCard).join("")}</div>
+        </div>
+      `;
+    });
+  }
+
+  main.innerHTML = html;
+}
+
+// Search
+document.getElementById("search").addEventListener("input", function() {
+  searchQuery = this.value.trim();
+  if (searchQuery) activeFilter = "all";
+  render();
+});
+
+// Filter buttons
+document.querySelectorAll(".filter-btn").forEach(btn => {
+  btn.addEventListener("click", function() {
+    activeFilter = this.dataset.cat;
+    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+    this.classList.add("active");
+    if (activeFilter !== "all") {
+      document.getElementById("search").value = "";
+      searchQuery = "";
+    }
+    render();
+  });
+});
+
+render();
+</script>
+</body>
+</html>

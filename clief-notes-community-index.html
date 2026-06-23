@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clief Notes — Community Resource Index</title>
+<style>
+  :root {
+    --bg: #0b0d14;
+    --surface: #13162a;
+    --surface2: #1c2038;
+    --border: #252a42;
+    --accent: #7c6ff0;
+    --accent-glow: rgba(124,111,240,0.18);
+    --accent2: #00e5b8;
+    --text: #edeef5;
+    --muted: #7a7f9a;
+    --dim: #4a4f6a;
+    --tag-memory:   #2a1d5e; --tag-memory-t:   #c4b4ff;
+    --tag-icm:      #0f3050; --tag-icm-t:      #7dd8ff;
+    --tag-writing:  #3a2a10; --tag-writing-t:  #ffd880;
+    --tag-design:   #152a0e; --tag-design-t:   #8de86a;
+    --tag-media:    #3a0e2a; --tag-media-t:    #ff7ec4;
+    --tag-workflow: #0e2e2e; --tag-workflow-t: #4dffd0;
+    --tag-external: #2e1e0e; --tag-external-t: #ffb470;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    line-height: 1.6;
+  }
+
+  /* ---- HERO ---- */
+  .hero {
+    background: linear-gradient(160deg, #0f1226 0%, #0b0d14 60%);
+    border-bottom: 1px solid var(--border);
+    padding: 52px 48px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: -60px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(124,111,240,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    background: var(--accent-glow);
+    border: 1px solid var(--accent);
+    border-radius: 20px;
+    color: var(--accent2);
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 18px;
+    padding: 4px 14px;
+    text-transform: uppercase;
+  }
+
+  .hero h1 {
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+
+  .hero h1 .accent { color: var(--accent); }
+  .hero h1 .accent2 { color: var(--accent2); }
+
+  .hero-desc {
+    color: var(--muted);
+    font-size: 15px;
+    max-width: 600px;
+    margin-bottom: 28px;
+    line-height: 1.7;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+
+  .hero-stat {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero-stat-num {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--accent2);
+    line-height: 1;
+  }
+
+  .hero-stat-label {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-top: 3px;
+  }
+
+  /* ---- TOOLBAR ---- */
+  .toolbar {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 48px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  #search {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 14px;
+    padding: 9px 14px 9px 36px;
+    width: 260px;
+    outline: none;
+    transition: border-color 0.2s;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%237a7f9a' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: 12px center;
+  }
+  #search::placeholder { color: var(--muted); }
+  #search:focus { border-color: var(--accent); }
+
+  .filter-tabs {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    flex: 1;
+  }
+
+  .filter-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 14px;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .filter-btn:hover { border-color: var(--accent); color: var(--text); }
+  .filter-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 700; }
+
+  .submit-btn {
+    background: var(--accent2);
+    border: none;
+    border-radius: 8px;
+    color: #000;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 8px 16px;
+    transition: opacity 0.15s;
+    margin-left: auto;
+    white-space: nowrap;
+  }
+  .submit-btn:hover { opacity: 0.88; }
+
+  /* ---- MAIN ---- */
+  main {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 36px 48px 60px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 36px 0 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .section-count {
+    background: var(--surface2);
+    border-radius: 10px;
+    color: var(--dim);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 1px 8px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 16px;
+  }
+
+  /* ---- CARDS ---- */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 24px;
+    transition: all 0.18s;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .card:hover {
+    border-color: var(--accent);
+    background: var(--surface2);
+    box-shadow: 0 6px 28px rgba(124,111,240,0.1);
+  }
+
+  .card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .card-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .card-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .author {
+    font-size: 12px;
+    color: var(--accent2);
+    font-weight: 600;
+  }
+
+  .tag {
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 2px 7px;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+
+  .tag-memory    { background: var(--tag-memory);   color: var(--tag-memory-t); }
+  .tag-icm       { background: var(--tag-icm);      color: var(--tag-icm-t); }
+  .tag-writing   { background: var(--tag-writing);  color: var(--tag-writing-t); }
+  .tag-design    { background: var(--tag-design);   color: var(--tag-design-t); }
+  .tag-media     { background: var(--tag-media);    color: var(--tag-media-t); }
+  .tag-workflow  { background: var(--tag-workflow); color: var(--tag-workflow-t); }
+  .tag-external  { background: var(--tag-external); color: var(--tag-external-t); }
+
+  .card-desc {
+    font-size: 13px;
+    color: #9a9db8;
+    line-height: 1.6;
+  }
+
+  .card-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .link-pill {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--muted);
+    font-size: 12px;
+    padding: 4px 10px;
+    text-decoration: none;
+    transition: all 0.15s;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .link-pill:hover { border-color: var(--accent); color: var(--accent2); }
+  .link-pill.github:hover { border-color: #8b949e; color: #e6edf3; }
+  .link-pill.community:hover { border-color: var(--tag-memory-t); color: var(--tag-memory-t); }
+
+  .card-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-top: 4px;
+    border-top: 1px solid var(--border);
+  }
+
+  .helpful-label {
+    font-size: 12px;
+    color: var(--muted);
+    flex: 1;
+  }
+
+  .vote-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 13px;
+    padding: 4px 10px;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .vote-btn:hover { border-color: var(--accent2); color: var(--accent2); }
+  .vote-btn.voted { background: var(--tag-workflow); border-color: var(--accent2); color: var(--accent2); }
+
+  .feedback-btn {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--dim);
+    cursor: pointer;
+    font-size: 12px;
+    padding: 4px 10px;
+    transition: all 0.15s;
+  }
+  .feedback-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .vote-count {
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 600;
+    margin-left: 2px;
+  }
+
+  /* ---- MODAL ---- */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    max-width: 540px;
+    width: 100%;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .modal h2 { font-size: 18px; font-weight: 700; }
+  .modal p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+  .modal-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  .modal textarea, .modal input[type="text"] {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 13px;
+    outline: none;
+    padding: 10px 12px;
+    width: 100%;
+    transition: border-color 0.2s;
+  }
+  .modal textarea:focus, .modal input:focus { border-color: var(--accent); }
+  .modal textarea { resize: vertical; min-height: 120px; }
+
+  .modal-copy {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: #7dd8ff;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    padding: 12px;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+
+  .modal-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 10px 20px;
+    transition: opacity 0.15s;
+  }
+  .btn-primary:hover { opacity: 0.88; }
+
+  .btn-secondary {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 14px;
+    padding: 10px 20px;
+    transition: all 0.15s;
+  }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--text); }
+
+  .btn-copy {
+    background: var(--tag-workflow);
+    border: 1px solid var(--accent2);
+    border-radius: 6px;
+    color: var(--accent2);
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 14px;
+    transition: all 0.15s;
+    align-self: flex-end;
+  }
+  .btn-copy:hover { background: var(--accent2); color: #000; }
+
+  .copied-msg {
+    color: var(--accent2);
+    font-size: 12px;
+    display: none;
+    align-self: center;
+  }
+  .copied-msg.show { display: inline; }
+
+  /* ---- EMPTY ---- */
+  .empty-state {
+    text-align: center;
+    padding: 80px 0;
+    color: var(--muted);
+  }
+  .empty-state span { font-size: 48px; display: block; margin-bottom: 14px; }
+  .empty-state h3 { font-size: 18px; margin-bottom: 8px; color: var(--text); }
+
+  /* ---- FOOTER ---- */
+  footer {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 12px;
+    padding: 20px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  footer a { color: var(--accent); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  .result-count {
+    font-size: 12px;
+    color: var(--muted);
+    margin-left: auto;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 720px) {
+    .hero { padding: 32px 24px 24px; }
+    .hero h1 { font-size: 26px; }
+    .toolbar { padding: 14px 24px; }
+    main { padding: 24px; }
+    .grid { grid-template-columns: 1fr; }
+    #search { width: 100%; }
+    footer { padding: 16px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-badge">Clief Notes · Community</div>
+  <h1>The <span class="accent">Resource</span> Index<br><span class="accent2">by the community, for the community</span></h1>
+  <p class="hero-desc">Every tool, skill, and framework shared in Clief Notes — organized, searchable, and linkable. Mar–Jun 2026 · Maintained by community members.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><span class="hero-stat-num">32</span><span class="hero-stat-label">Tools cataloged</span></div>
+    <div class="hero-stat"><span class="hero-stat-num">7</span><span class="hero-stat-label">Categories</span></div>
+    <div class="hero-stat"><span class="hero-stat-num">3</span><span class="hero-stat-label">Months of posts</span></div>
+    <div class="hero-stat"><span class="hero-stat-num">224+</span><span class="hero-stat-label">Posts in Resources &amp; Finds</span></div>
+  </div>
+</div>
+
+<div class="toolbar">
+  <input id="search" type="text" placeholder="Search tools, authors, topics..." autocomplete="off">
+  <div class="filter-tabs">
+    <button class="filter-btn active" data-cat="all">All</button>
+    <button class="filter-btn" data-cat="memory">Memory</button>
+    <button class="filter-btn" data-cat="icm">ICM</button>
+    <button class="filter-btn" data-cat="writing">Writing</button>
+    <button class="filter-btn" data-cat="design">Design</button>
+    <button class="filter-btn" data-cat="media">Media</button>
+    <button class="filter-btn" data-cat="workflow">Workflow</button>
+    <button class="filter-btn" data-cat="external">External</button>
+  </div>
+  <span class="result-count" id="resultCount"></span>
+  <button class="submit-btn" onclick="openSubmitModal()">+ Submit a Tool</button>
+</div>
+
+<main id="main"></main>
+
+<footer>
+  <div>Clief Notes Resource Index · <a href="https://skool.com/cliefnotes" target="_blank">skool.com/cliefnotes</a></div>
+  <div>Votes &amp; notes are local to your browser · Last updated June 2026</div>
+</footer>
+
+<!-- FEEDBACK MODAL -->
+<div class="modal-overlay" id="feedbackModal">
+  <div class="modal">
+    <h2>Rate &amp; Review</h2>
+    <p id="feedbackToolName" style="color:var(--accent2); font-weight:700; font-size:15px;"></p>
+    <p>Copy the formatted review below and paste it as a reply in the original Skool post.</p>
+    <div>
+      <div class="modal-label">Your experience with this tool</div>
+      <textarea id="feedbackText" placeholder="What worked? What didn't? What would you add?"></textarea>
+    </div>
+    <div>
+      <div class="modal-label">Your rating</div>
+      <div id="ratingStars" style="display:flex; gap:8px; font-size:24px; cursor:pointer;">
+        <span data-val="1">☆</span><span data-val="2">☆</span><span data-val="3">☆</span><span data-val="4">☆</span><span data-val="5">☆</span>
+      </div>
+    </div>
+    <div>
+      <div class="modal-label">Copy this to paste in Skool</div>
+      <div class="modal-copy" id="feedbackPreview">[Your review will appear here]</div>
+      <div style="display:flex; align-items:center; gap:10px; margin-top:8px;">
+        <button class="btn-copy" onclick="copyFeedback()">Copy to Clipboard</button>
+        <span class="copied-msg" id="copiedMsg">Copied!</span>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-secondary" onclick="closeModal('feedbackModal')">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- SUBMIT MODAL -->
+<div class="modal-overlay" id="submitModal">
+  <div class="modal">
+    <h2>Submit a Tool</h2>
+    <p>Fill out the template below, then copy and paste it as a post in the <strong>Resources &amp; Finds</strong> category on Clief Notes.</p>
+    <div>
+      <div class="modal-label">Tool Name</div>
+      <input type="text" id="submitName" placeholder="e.g. My Awesome Skill">
+    </div>
+    <div>
+      <div class="modal-label">Your Name / Handle</div>
+      <input type="text" id="submitAuthor" placeholder="e.g. John Doe">
+    </div>
+    <div>
+      <div class="modal-label">Category</div>
+      <select id="submitCat" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;padding:10px 12px;width:100%;outline:none;">
+        <option value="memory">Memory &amp; Context</option>
+        <option value="icm">ICM / Workspace</option>
+        <option value="writing">Writing &amp; Feedback</option>
+        <option value="design">Design &amp; UI</option>
+        <option value="media">Media &amp; Content</option>
+        <option value="workflow">Workflow &amp; Utility</option>
+        <option value="external">External Framework</option>
+      </select>
+    </div>
+    <div>
+      <div class="modal-label">What does it do? (2–4 sentences)</div>
+      <textarea id="submitDesc" placeholder="Describe what the tool does, who it's for, and the key mechanism that makes it work."></textarea>
+    </div>
+    <div>
+      <div class="modal-label">GitHub / Link</div>
+      <input type="text" id="submitLink" placeholder="https://github.com/...">
+    </div>
+    <div>
+      <div class="modal-label">Copy this to post in Skool → Resources &amp; Finds</div>
+      <div class="modal-copy" id="submitPreview">[Fill in the fields above]</div>
+      <div style="display:flex; align-items:center; gap:10px; margin-top:8px;">
+        <button class="btn-copy" onclick="copySubmit()">Copy to Clipboard</button>
+        <span class="copied-msg" id="copiedSubmitMsg">Copied!</span>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-secondary" onclick="closeModal('submitModal')">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const TOOLS = [
+  { id:"pmm", name:"PMM — Poor Man's Memory", author:"Millennial Cat", cat:"memory",
+    desc:"The flagship community memory tool. Open-source plugin for Claude Code and CoWork. Persistent, structured memory across sessions using a plain folder/file system. Slash commands: /pmm:init, /pmm:hydrate, /pmm:save, /pmm:recall. Achieves 0.08 of perfectly-stuffed oracle context efficiency.",
+    links:[{l:"Community Post",u:"https://skool.com/cliefnotes/multi-agent-memory-management-with-folders-and-files",t:"community"},{l:"nominex.org",u:"https://nominex.org",t:"site"},{l:"YouTube",u:"https://youtube.com/@nominexai",t:"site"}]},
+  { id:"session-memory", name:"Session Memory Layer", author:"Deacon Wardlow", cat:"memory",
+    desc:"Adds a session continuity layer on top of PMM. Separates long-term 'what Claude knows about you' memory from short-term 'what we worked on yesterday.' Uses a rolling session log (last 10 sessions) plus persistent open-threads tracking.",
+    links:[{l:"Community Post",u:"https://skool.com/cliefnotes/session-memory-layer-pmm-never-lose-context-again-in-claude-cowork",t:"community"}]},
+  { id:"cortex", name:"Cortex", author:"Ari Evergreen", cat:"memory",
+    desc:"Memory layer modeled on human neuroanatomy: tagged memory regions, typed memory edges ('tracts') that strengthen with use, five-tier consolidation (raw to promoted fact), and auto-recall injection at session start. Runs locally, model-agnostic.",
+    links:[{l:"aris-space.com",u:"https://aris-space.com/documents/memory/cortex",t:"site"}]},
+  { id:"brofessor", name:"Brofessor", author:"Yucky Yuckyyyy", cat:"icm",
+    desc:"Community's most-celebrated skill. ICM-based workspace auditor that checks docs, routing, stages, review gates, and context-loading patterns. Finds bloat, confusion, and overbuilt process. Proposes the smallest safe fix, waits for approval, then executes and synthesizes. Supports swappable personas via CONFIG.md. Built in 3 prompts.",
+    links:[{l:"Community Post",u:"https://skool.com/cliefnotes/class-meet-brofessor",t:"community"}]},
+  { id:"icm-builder", name:"ICM-Builder Skill", author:"Carlos Pecucci", cat:"icm",
+    desc:"Scaffolds ICM projects, generates routing tables, and tracks what needs updating when you change a contract or reference file across stages.",
+    links:[{l:"GitHub",u:"https://github.com/carloswecare/icm-builder",t:"github"}]},
+  { id:"icm-architect", name:"ICM Workspace Architect", author:"Frank Schwarz", cat:"icm",
+    desc:"Vibe-coded skill for architecting ICM workspaces from scratch. Generates structure, routing, and stage definitions.",
+    links:[{l:"GitHub",u:"https://github.com/blackghostosint/icm-workspace-architect",t:"github"}]},
+  { id:"foundations-tutor", name:"ICM Foundations Tutor", author:"Don Roy", cat:"icm",
+    desc:"Custom AI Tutor folder-based agent with Jake's and Matthew Creamer's complete Foundations course knowledge baked in. Walks you through ICM step by step, checks your work, and won't let you move forward until you understand.",
+    links:[{l:"Community Post",u:"https://skool.com/cliefnotes/a-foundations-tutor-for-those-who-need-more",t:"community"}]},
+  { id:"dev-tutor", name:"Dev Fundamentals Tutor", author:"Don Roy", cat:"icm",
+    desc:"Folder-based agent teaching software development fundamentals (roadmap.sh curriculum) for those without formal dev training. Interactive and progress-tracking.",
+    links:[{l:"Community Post",u:"https://skool.com/cliefnotes/want-to-beef-up-your-dev-fundamentals",t:"community"}]},
+  { id:"critical-editor", name:"Critical Editor / Stop the Sycophancy", author:"Deacon Wardlow", cat:"writing",
+    desc:"Full Claude skill that overrides Claude's default praise-first behavior. Opens with a revision score (0–100%), leads with the three biggest structural problems, quotes specific lines, ends with a full rewrite. Complete skill prompt in post.",
+    links:[{l:"Community Post",u:"https://skool.com/cliefnotes/stop-the-sycophancy-claude-skill",t:"community"}]},
+  { id:"council-of-5", name:"Council of 5", author:"Megan Hayward", cat:"writing",
+    desc:"Runs any question/problem/document through 5 distinct AI personalities (The Professor, The Teacher, The Founder, The Outsider, The Contrarian) with 3 discussion rounds, then synthesizes to consensus.",
+    links:[{l:"Search Community",u:"https://skool.com/cliefnotes",t:"community"}]},
+  { id:"tastecheck", name:"tastecheck (14-skill pack)", author:"Simon Gonzalez De Cruz", cat:"design",
+    desc:"Free MIT-licensed skill pack (14 skills) to break AI coding agents out of generic 'slop' UI. Runs a design taste interview before building — reference sites, color, feel, what to avoid. Covers typography, color, layout, dark mode, motion, accessibility, design review.",
+    links:[{l:"GitHub",u:"https://github.com/KyaniteLabs/tastecheck",t:"github"},{l:"Samples",u:"https://kyanitelabs.github.io/tastecheck/samples/",t:"site"}]},
+  { id:"weirdness-engine", name:"Weirdness Engine", author:"Seth Jenks", cat:"design",
+    desc:"A tool to introduce calibrated 'weirdness' into AI software designs — more creative without being alienating. Dials up differentiation while keeping UX intact.",
+    links:[{l:"GitHub",u:"https://github.com/sethjenks/weirdness-engine",t:"github"}]},
+  { id:"design-md", name:"DESIGN.md Style Extractor", author:"Roc Lee (shared)", cat:"design",
+    desc:"Chrome extension that creates a DESIGN.md of any website — captures colors, typography, spacing, and component patterns for use as a Claude context file. Captures someone else's design system in seconds.",
+    links:[{l:"GitHub",u:"https://github.com/bergside/design-md-chrome",t:"github"}]},
+  { id:"open-design", name:"Open Design", author:"Simon Gonzalez De Cruz", cat:"design",
+    desc:"Open-source Claude Design alternative. Local-first, BYOK, auto-detects 16 coding CLI agents (Claude Code, Codex, Cursor, Gemini CLI, Hermes, Kimi, etc.). Includes 31 composable skills and 72 brand-grade design systems.",
+    links:[{l:"open-design.ai",u:"https://open-design.ai",t:"site"}]},
+  { id:"to-md", name:"to-md (Document Preprocessor)", author:"Ari Evergreen", cat:"media",
+    desc:"Converts .pdf, .docx, .pptx, and .xlsx into lean Markdown. Strips layout/formatting tokens you never needed. Writes both a faithful and minimal version. Includes a Claude Code skill. Reduces wasted context tokens significantly.",
+    links:[]},
+  { id:"pushing-creation", name:"Pushing-Creation (Image/Video Gen)", author:"Ari Evergreen", cat:"media",
+    desc:"Claude Code skill using a cinematic 'director of photography' briefing methodology. Generates images and video from within a Claude session via /frames-brainstorm and /frames-gen. API keys stored in macOS Keychain.",
+    links:[{l:"aris-space.com",u:"https://aris-space.com",t:"site"}]},
+  { id:"yt-extraction", name:"YouTube Knowledge Extraction Pipeline", author:"Daniel Terry", cat:"media",
+    desc:"YouTube URL in → Claude extracts 3–7 discrete structured claims (Concept, Mechanism, So What, Open Questions) → appended to a local markdown log. Built for use on Jake's and other community videos.",
+    links:[{l:"Search Community",u:"https://skool.com/cliefnotes",t:"community"}]},
+  { id:"typewhisper", name:"TypeWhisper", author:"Simon Gonzalez De Cruz (shared)", cat:"media",
+    desc:"Free, open-source, fully local speech-to-text app. Hotkey → speak → transcription pastes into any app. Supports WhisperKit, Parakeet, Voxtral, Apple Speech, and more. Per-app profiles, file transcription, live transcript, plugin system.",
+    links:[{l:"GitHub",u:"https://github.com/TypeWhisper",t:"github"}]},
+  { id:"prompt-queen", name:"Prompt Queen", author:"Don Roy", cat:"workflow",
+    desc:"Simple ICM-folder-based planning framework that checkpoints Claude before it jumps to implementation. Ensures you've nailed your goal before handoff to build.",
+    links:[{l:"GitHub",u:"https://github.com/donroy26/prompt-queen",t:"github"}]},
+  { id:"brainstorming-skill", name:"Brainstorming Skill", author:"Ari Evergreen", cat:"workflow",
+    desc:"A 9-step structured skill the agent runs on itself before any build: explores context, asks clarifying questions one at a time, proposes approaches, writes a spec doc, self-reviews it, and only hands to implementation after human approval. The hard gate is the key mechanism.",
+    links:[]},
+  { id:"pi-skills", name:"pi-skills", author:"Garratt Campton (shared)", cat:"workflow",
+    desc:"Scripts that replace bloated MCPs (Playwright, Puppeteer, Chrome browser MCP) with lean executable code. Works with Claude, Codex, Gemini, Hermes.",
+    links:[{l:"GitHub",u:"https://github.com/badlogic/pi-skills",t:"github"}]},
+  { id:"marketing-skills", name:"Marketing Skills 2.0", author:"Corey Haines (shared)", cat:"workflow",
+    desc:"GitHub-hosted set of marketing skills for AI agents — copywriting, positioning, and campaign workflows.",
+    links:[{l:"GitHub",u:"https://github.com/coreyhaines31/marketingskills",t:"github"}]},
+  { id:"vercel-agent-browser", name:"Vercel Agent-Browser", author:"Xephry Ng (shared)", cat:"workflow",
+    desc:"Drop-in Playwright replacement for AI browser automation. Returns compact page snapshots with reference IDs instead of full DOM trees. Saves 82–93% on context tokens vs. standard browser MCPs.",
+    links:[{l:"GitHub",u:"https://github.com/vercel-labs/agent-browser",t:"github"}]},
+  { id:"shortcut-launcher", name:"Desktop Shortcut Launcher (.bat)", author:"Don Roy", cat:"workflow",
+    desc:"A batch file you drop into any folder — creates a desktop shortcut that launches Claude Code directly into that folder. Simple quality-of-life for Windows users.",
+    links:[{l:"Community Post",u:"https://skool.com/cliefnotes/launch-your-claude-codex-project-with-a-desktop-shortcut",t:"community"}]},
+  { id:"praxis-library", name:"Praxis Library", author:"Bas Rosario", cat:"workflow",
+    desc:"Free, open web knowledge base: 5,319 AI term glossary, 175 prompt techniques and frameworks, interactive tools including Prompt Analyzer, Prompt Builder, Technique Finder, Persona Architect, Hallucination Spotter, Preflight Checklist, and Readiness Quiz. No trackers.",
+    links:[{l:"praxislibrary.com",u:"https://praxislibrary.com",t:"site"}]},
+  { id:"miessler-pai", name:"Personal AI Infrastructure", author:"Daniel Miessler", cat:"external",
+    desc:"22,000+ hours of dev work. 45 skills, 171 workflows, 37 safety hooks. Runs on Claude Code. Free to install. One of the most comprehensive personal AI infrastructure projects publicly available.",
+    links:[{l:"GitHub",u:"https://github.com/danielmiessler/Personal_AI_Infrastructure",t:"github"}]},
+  { id:"hermes", name:"Hermes Agent", author:"Nous Research", cat:"external",
+    desc:"Open-source self-improving agent. Writes its own Python skills, persistent memory across sessions, 40+ built-in tools, model-agnostic. Now has a desktop app (Hermes Desktop).",
+    links:[{l:"hermesguide.xyz",u:"https://hermesguide.xyz",t:"site"}]},
+  { id:"open-brain", name:"Open Brain (OB1)", author:"David Vogel (shared)", cat:"external",
+    desc:"Shared memory layer across any AI (Claude, ChatGPT, Cursor). One Supabase Postgres table with vector search — any model reads and writes the same memory store.",
+    links:[]},
+  { id:"jcode", name:"jcode", author:"Community", cat:"external",
+    desc:"Claude Code alternative harness in Rust: 14 ms cold start, 27.8 MB idle RAM, self-modifying (agents can edit the harness's own source mid-session). Search 'jcode' in the community for the GitHub link.",
+    links:[{l:"Search Community",u:"https://skool.com/cliefnotes",t:"community"}]},
+  { id:"understand-anything", name:"Understand Anything", author:"Egonex AI", cat:"external",
+    desc:"Turn any codebase into an interactive knowledge graph. Maps dependencies, surfaces entry points, and lets you query the codebase conversationally.",
+    links:[{l:"GitHub",u:"https://github.com/Egonex-AI/Understand-Anything",t:"github"}]},
+];
+
+const CATEGORIES = [
+  { id:"memory",   label:"Memory & Context",   tagClass:"tag-memory" },
+  { id:"icm",      label:"ICM / Workspace",    tagClass:"tag-icm" },
+  { id:"writing",  label:"Writing & Feedback", tagClass:"tag-writing" },
+  { id:"design",   label:"Design & UI",        tagClass:"tag-design" },
+  { id:"media",    label:"Media & Content",    tagClass:"tag-media" },
+  { id:"workflow", label:"Workflow & Utility", tagClass:"tag-workflow" },
+  { id:"external", label:"External Frameworks",tagClass:"tag-external" },
+];
+
+const CAT_MAP = {};
+CATEGORIES.forEach(c => CAT_MAP[c.id] = c);
+
+let activeFilter = "all";
+let searchQuery = "";
+
+// localStorage helpers
+function getVotes() { try { return JSON.parse(localStorage.getItem("cn2_votes")||"{}"); } catch { return {}; } }
+function setVotes(v) { localStorage.setItem("cn2_votes", JSON.stringify(v)); }
+function getVoteCounts() { try { return JSON.parse(localStorage.getItem("cn2_vcounts")||"{}"); } catch { return {}; } }
+function setVoteCounts(v) { localStorage.setItem("cn2_vcounts", JSON.stringify(v)); }
+
+function vote(id) {
+  const votes = getVotes();
+  const counts = getVoteCounts();
+  if (votes[id]) {
+    // unvote
+    delete votes[id];
+    counts[id] = Math.max(0, (counts[id] || 1) - 1);
+  } else {
+    votes[id] = true;
+    counts[id] = (counts[id] || 0) + 1;
+  }
+  setVotes(votes);
+  setVoteCounts(counts);
+  // Update UI
+  const btn = document.querySelector(`[data-vote="${id}"]`);
+  const countEl = document.querySelector(`[data-vcount="${id}"]`);
+  if (btn) btn.classList.toggle("voted", !!votes[id]);
+  if (countEl) countEl.textContent = counts[id] || 0;
+}
+
+function linkIcon(t) {
+  if (t === "github") return "⌥";
+  if (t === "community") return "◆";
+  return "↗";
+}
+
+function renderCard(tool) {
+  const votes = getVotes();
+  const counts = getVoteCounts();
+  const cat = CAT_MAP[tool.cat] || {};
+  const isVoted = !!votes[tool.id];
+  const voteCount = counts[tool.id] || 0;
+
+  const linksHTML = tool.links.map(l =>
+    `<a class="link-pill ${l.t}" href="${l.u}" target="_blank" rel="noopener">${linkIcon(l.t)} ${l.l}</a>`
+  ).join("");
+
+  return `
+    <div class="card" data-id="${tool.id}">
+      <div class="card-top">
+        <div>
+          <div class="card-title">${tool.name}</div>
+        </div>
+      </div>
+      <div class="card-meta">
+        <span class="author">${tool.author}</span>
+        <span class="tag ${cat.tagClass || ''}">${cat.label || tool.cat}</span>
+      </div>
+      <div class="card-desc">${tool.desc}</div>
+      ${linksHTML ? `<div class="card-links">${linksHTML}</div>` : ""}
+      <div class="card-actions">
+        <span class="helpful-label">Helpful?</span>
+        <button class="vote-btn ${isVoted ? 'voted' : ''}" data-vote="${tool.id}" onclick="vote('${tool.id}')">
+          ${isVoted ? '✓' : '+'} Helpful
+          <span class="vote-count" data-vcount="${tool.id}">${voteCount > 0 ? voteCount : ''}</span>
+        </button>
+        <button class="feedback-btn" onclick="openFeedbackModal('${tool.id}', '${tool.name.replace(/'/g,"\\'")}')">Leave review</button>
+      </div>
+    </div>
+  `;
+}
+
+function getFiltered() {
+  const q = searchQuery.toLowerCase();
+  return TOOLS.filter(t => {
+    if (activeFilter !== "all" && t.cat !== activeFilter) return false;
+    if (!q) return true;
+    return t.name.toLowerCase().includes(q) || t.author.toLowerCase().includes(q) || t.desc.toLowerCase().includes(q);
+  });
+}
+
+function render() {
+  const main = document.getElementById("main");
+  const filtered = getFiltered();
+  document.getElementById("resultCount").textContent = `${filtered.length} / ${TOOLS.length} tools`;
+
+  if (!filtered.length) {
+    main.innerHTML = `<div class="empty-state"><span>🔍</span><h3>No results</h3><p>Try a different search or category</p></div>`;
+    return;
+  }
+
+  if (activeFilter !== "all") {
+    main.innerHTML = `<div class="grid">${filtered.map(renderCard).join("")}</div>`;
+    return;
+  }
+
+  let html = "";
+  CATEGORIES.forEach(cat => {
+    const catTools = filtered.filter(t => t.cat === cat.id);
+    if (!catTools.length) return;
+    html += `
+      <div class="section-header">
+        <span class="section-title">${cat.label}</span>
+        <span class="section-count">${catTools.length}</span>
+      </div>
+      <div class="grid">${catTools.map(renderCard).join("")}</div>
+    `;
+  });
+
+  main.innerHTML = html;
+}
+
+// Search
+document.getElementById("search").addEventListener("input", function() {
+  searchQuery = this.value.trim();
+  render();
+});
+
+// Filters
+document.querySelectorAll(".filter-btn").forEach(btn => {
+  btn.addEventListener("click", function() {
+    activeFilter = this.dataset.cat;
+    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+    this.classList.add("active");
+    render();
+  });
+});
+
+// ----- FEEDBACK MODAL -----
+let currentFeedbackId = "";
+let currentFeedbackName = "";
+let currentRating = 0;
+
+function openFeedbackModal(id, name) {
+  currentFeedbackId = id;
+  currentFeedbackName = name;
+  currentRating = 0;
+  document.getElementById("feedbackToolName").textContent = name;
+  document.getElementById("feedbackText").value = "";
+  updateRatingStars(0);
+  updateFeedbackPreview();
+  document.getElementById("feedbackModal").classList.add("open");
+}
+
+function updateRatingStars(val) {
+  currentRating = val;
+  const stars = document.querySelectorAll("#ratingStars span");
+  stars.forEach((s, i) => {
+    s.textContent = i < val ? "★" : "☆";
+    s.style.color = i < val ? "#f0c040" : "var(--muted)";
+  });
+  updateFeedbackPreview();
+}
+
+document.querySelectorAll && document.addEventListener("DOMContentLoaded", () => {});
+document.getElementById("ratingStars").addEventListener("click", function(e) {
+  if (e.target.dataset.val) updateRatingStars(+e.target.dataset.val);
+});
+
+document.getElementById("feedbackText").addEventListener("input", updateFeedbackPreview);
+
+function updateFeedbackPreview() {
+  const stars = "★".repeat(currentRating) + "☆".repeat(5 - currentRating);
+  const text = document.getElementById("feedbackText").value.trim();
+  const preview = `[Resource Index Review]
+Tool: ${currentFeedbackName}
+Rating: ${stars} (${currentRating}/5)
+
+${text || "[your review here]"}
+
+— Left via the Clief Notes Resource Index`;
+  document.getElementById("feedbackPreview").textContent = preview;
+}
+
+function copyFeedback() {
+  navigator.clipboard.writeText(document.getElementById("feedbackPreview").textContent).then(() => {
+    const msg = document.getElementById("copiedMsg");
+    msg.classList.add("show");
+    setTimeout(() => msg.classList.remove("show"), 2000);
+  });
+}
+
+// ----- SUBMIT MODAL -----
+function openSubmitModal() {
+  document.getElementById("submitName").value = "";
+  document.getElementById("submitAuthor").value = "";
+  document.getElementById("submitDesc").value = "";
+  document.getElementById("submitLink").value = "";
+  updateSubmitPreview();
+  document.getElementById("submitModal").classList.add("open");
+}
+
+["submitName","submitAuthor","submitDesc","submitLink","submitCat"].forEach(id => {
+  document.getElementById(id).addEventListener("input", updateSubmitPreview);
+  document.getElementById(id).addEventListener("change", updateSubmitPreview);
+});
+
+function updateSubmitPreview() {
+  const name = document.getElementById("submitName").value.trim() || "[Tool Name]";
+  const author = document.getElementById("submitAuthor").value.trim() || "[Your Name]";
+  const cat = document.getElementById("submitCat").value;
+  const desc = document.getElementById("submitDesc").value.trim() || "[Description]";
+  const link = document.getElementById("submitLink").value.trim();
+  const catLabel = (CAT_MAP[cat]||{label:cat}).label;
+  document.getElementById("submitPreview").textContent =
+`[TOOL SUBMISSION]
+Name: ${name}
+Author: ${author}
+Category: ${catLabel}
+
+What it does:
+${desc}
+${link ? "\nLink: " + link : ""}
+
+— Submitted for the Clief Notes Resource Index`;
+}
+
+function copySubmit() {
+  navigator.clipboard.writeText(document.getElementById("submitPreview").textContent).then(() => {
+    const msg = document.getElementById("copiedSubmitMsg");
+    msg.classList.add("show");
+    setTimeout(() => msg.classList.remove("show"), 2000);
+  });
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove("open");
+}
+
+// Close modal on overlay click
+document.querySelectorAll(".modal-overlay").forEach(el => {
+  el.addEventListener("click", function(e) {
+    if (e.target === this) this.classList.remove("open");
+  });
+});
+
+updateSubmitPreview();
+render();
+</script>
+</body>
+</html>
