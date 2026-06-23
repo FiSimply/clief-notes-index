@@ -1,4 +1,4 @@
-# Clief Notes — Community Resource Index
+# Clief Notes - Community Resource Index
 
 **A community-maintained index of tools, skills, and frameworks shared on [Clief Notes](https://skool.com/cliefnotes) (Jason Van Clief's AI systems community).**
 
@@ -35,12 +35,12 @@ Open either file directly in your browser. No server required.
 
 Found a tool that's missing? Two ways to add it:
 
-**Option 1 — GitHub PR (preferred)**
+**Option 1 - GitHub PR (preferred)**
 1. Fork this repo
 2. Add your tool to the `TOOLS` array in either HTML file (follow the existing format)
 3. Open a pull request — I'll review and merge
 
-**Option 2 — Post in Clief Notes**
+**Option 2 - Post in Clief Notes**
 Use the "Submit a Tool" button in the community index. It generates a formatted submission you can paste directly into the Resources & Finds category. I'll add it to the index.
 
 ---
